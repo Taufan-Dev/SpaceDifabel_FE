@@ -3,7 +3,7 @@ import { useTTS } from '../../context/TTSContext';
 import { Ear, EarOff } from 'lucide-react';
 
 export default function Navbar() {
-  const { withTTS, isTTSEnabled, enableTTS, disableTTS } = useTTS();
+  const { withTTS, isTTSEnabled, enableTTS, disableTTS, forceSpeak } = useTTS();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md">
@@ -46,7 +46,8 @@ export default function Navbar() {
             className="p-2 rounded-full border border-slate-200 text-slate-500 hover:bg-slate-100 focus:ring-2 focus:ring-primary-600 outline-none transition-colors"
             aria-label={isTTSEnabled ? "Matikan Suara Pembaca Teks" : "Nyalakan Suara Pembaca Teks"}
             title={isTTSEnabled ? "Matikan Suara" : "Nyalakan Suara"}
-            {...withTTS(isTTSEnabled ? "Matikan Suara" : "Nyalakan Suara")}
+            onMouseEnter={() => forceSpeak(isTTSEnabled ? "Mode suara menyala. Tekan untuk mematikan suara." : "Apakah suara ingin dinyalakan?")}
+            onFocus={() => forceSpeak(isTTSEnabled ? "Mode suara menyala. Tekan untuk mematikan suara." : "Apakah suara ingin dinyalakan?")}
           >
             {isTTSEnabled ? (
               <Ear className="w-5 h-5 text-primary-600" />

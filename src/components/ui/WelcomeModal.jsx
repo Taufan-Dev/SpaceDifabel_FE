@@ -36,6 +36,7 @@ export default function WelcomeModal() {
         <div className="flex flex-row p-4 gap-4 bg-slate-50 justify-center">
           <button
             onClick={enableTTS}
+            autoFocus
             onMouseEnter={() => forceSpeak("Tombol Ya. Nyalakan Suara Panduan")}
             onFocus={() => forceSpeak("Tombol Ya. Nyalakan Suara Panduan")}
             className="flex-1 flex flex-col items-center justify-center py-6 px-4 bg-primary-600 hover:bg-primary-700 text-white rounded-xl shadow-sm transition-transform hover:scale-105 outline-none focus:ring-4 focus:ring-primary-300"

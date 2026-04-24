@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ArrowRight, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardHeader, CardTitle, CardFooter } from '../../components/ui/Card';
@@ -9,6 +10,7 @@ const courses = [
     id: 1,
     title: 'Belajar Mengetik di Komputer (Tunanetra)',
     category: 'Dasar Komputer',
+    target: 'Tunanetra',
     rating: 4.8,
     instructor: 'Bapak Sani',
     accessMods: ['Panduan Suara', 'Keyboard'],
@@ -17,6 +19,7 @@ const courses = [
     id: 2,
     title: 'Belajar Menggambar Cantik di HP (Tunarungu)',
     category: 'Kreatifitas',
+    target: 'Tunarungu',
     rating: 4.9,
     instructor: 'Ibu Maya',
     accessMods: ['Bahasa Isyarat', 'Visual'],
@@ -25,17 +28,25 @@ const courses = [
     id: 3,
     title: 'Cara Jualan Online Mudah',
     category: 'Pemasaran',
+    target: 'Umum',
     rating: 4.7,
     instructor: 'Kak Budi',
     accessMods: ['Tampilan Besar', 'Langkah Mudah'],
   }
 ];
 
+const disabilities = ['Semua', 'Tunanetra', 'Tunarungu', 'Tunagrahita', 'Tunadaksa', 'Umum'];
+
 export default function CourseListSection() {
   const { withTTS } = useTTS();
+  const [activeCategory, setActiveCategory] = useState('Semua');
+
+  const filteredCourses = activeCategory === 'Semua' 
+    ? courses 
+    : courses.filter(c => c.target === activeCategory);
 
   return (
-    <section className="py-24 bg-slate-50">
+    <section className="py-24 bg-white">
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="max-w-2xl">
@@ -63,8 +74,33 @@ export default function CourseListSection() {
           </Link>
         </div>
 
+        {/* Category Filter Bar */}
+        <div 
+          className="flex flex-wrap gap-3 mb-10"
+          role="tablist"
+          aria-label="Pilih kategori disabilitas"
+        >
+          {disabilities.map(cat => (
+            <button
+              key={cat}
+              role="tab"
+              aria-selected={activeCategory === cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-5 py-2.5 rounded-full font-medium text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 ${
+                activeCategory === cat 
+                  ? 'bg-primary-600 text-white shadow-md scale-105' 
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+              {...withTTS(`Filter kategori: ${cat}`)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {courses.map((course) => (
+          {filteredCourses.length > 0 ? (
+            filteredCourses.map((course) => (
             <Card 
               key={course.id} 
               className="flex flex-col h-full border-slate-200 hover:border-primary-300 group"
@@ -100,12 +136,21 @@ export default function CourseListSection() {
               </CardHeader>
               
               <CardFooter className="pt-0">
-                <Button className="w-full" aria-label={`Buka halaman kelas ${course.title}`} tabIndex={-1}>
-                  Buka Kelas Ini
-                </Button>
+                <Link to={`/courses/${course.id}`} className="w-full block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 rounded-lg">
+                  <Button className="w-full" aria-label={`Buka halaman kelas ${course.title}`} tabIndex={-1}>
+                    Buka Kelas Ini
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
-          ))}
+            ))
+          ) : (
+            <div className="col-span-full py-12 text-center bg-slate-50 rounded-xl border-2 border-dashed border-slate-200">
+              <p className="text-slate-500 font-medium text-lg" {...withTTS("Maaf, kelas untuk kategori ini sedang disiapkan. Silakan pilih kategori lain.")}>
+                Maaf, kelas untuk kategori ini sedang disiapkan.<br/>Pilih kategori disabilitas lainnya ya!
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </section>

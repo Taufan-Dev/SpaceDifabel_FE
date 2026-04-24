@@ -1,70 +1,70 @@
 import { useState } from 'react';
-import { Star, Search } from 'lucide-react';
+import { Briefcase, Search } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardFooter } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Link } from 'react-router-dom';
 import { useTTS } from '../context/TTSContext';
 
-const courses = [
+const jobs = [
   {
     id: 1,
-    title: 'Belajar Mengetik di Komputer (Tunanetra)',
-    category: 'Dasar Komputer',
+    title: 'Customer Service Online',
+    category: 'Pelayanan',
     target: 'Tunanetra',
-    rating: 4.8,
-    instructor: 'Bapak Sani',
-    accessMods: ['Panduan Suara', 'Keyboard'],
+    rating: 'Remote',
+    instructor: 'PT Maju Bersama',
+    accessMods: ['Ramah Screen-Reader', 'Jam Fleksibel'],
   },
   {
     id: 2,
-    title: 'Belajar Menggambar Cantik di HP (Tunarungu)',
+    title: 'Desainer Grafis (Freelance)',
     category: 'Kreatifitas',
     target: 'Tunarungu',
-    rating: 4.9,
-    instructor: 'Ibu Maya',
-    accessMods: ['Bahasa Isyarat', 'Visual'],
+    rating: 'Hybrid',
+    instructor: 'Studio Warna',
+    accessMods: ['Komunikasi Chat', 'Visual Base'],
   },
   {
     id: 3,
-    title: 'Cara Jualan Online Mudah',
-    category: 'Pemasaran',
+    title: 'Admin Rekap Data Transaksi',
+    category: 'Administrasi',
     target: 'Umum',
-    rating: 4.7,
-    instructor: 'Kak Budi',
-    accessMods: ['Tampilan Besar', 'Langkah Mudah'],
+    rating: 'Kantor',
+    instructor: 'CV Makmur',
+    accessMods: ['Akses Kursi Roda', 'Lantai 1'],
   },
   {
     id: 4,
-    title: 'Dasar Microsoft Word',
-    category: 'Dasar Komputer',
-    target: 'Umum',
-    rating: 4.6,
-    instructor: 'Ibu Ratna',
-    accessMods: ['Langkah Mudah'],
+    title: 'Penulis Konten Website',
+    category: 'Digital',
+    target: 'Tunadaksa',
+    rating: 'Remote',
+    instructor: 'Agensi Digital',
+    accessMods: ['Kerja Jarak Jauh', 'Fleksibel'],
   },
   {
     id: 5,
-    title: 'Bahasa Inggris Dasar Tunanetra',
-    category: 'Bahasa',
-    target: 'Tunanetra',
-    rating: 4.9,
-    instructor: 'Kak Andi',
-    accessMods: ['Panduan Suara', 'Teks Besar'],
+    title: 'Staf Pengarsipan',
+    category: 'Hrd',
+    target: 'Tunarungu',
+    rating: 'Kantor',
+    instructor: 'Klinik Sehat',
+    accessMods: ['Cahaya Terang', 'Area Tenang'],
   }
 ];
 
 const disabilities = ['Semua', 'Tunanetra', 'Tunarungu', 'Tunagrahita', 'Tunadaksa', 'Umum'];
 
-export default function Courses() {
+export default function Jobs() {
   const { withTTS } = useTTS();
   const [activeCategory, setActiveCategory] = useState('Semua');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredCourses = courses.filter(c => {
-    const matchesCategory = activeCategory === 'Semua' || c.target === activeCategory;
-    const matchesSearch = c.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          c.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          c.instructor.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredJobs = jobs.filter(j => {
+    const matchesCategory = activeCategory === 'Semua' || j.target === activeCategory;
+    const matchesSearch = j.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          j.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          j.instructor.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -73,15 +73,15 @@ export default function Courses() {
       <div className="max-w-3xl mb-12">
         <h1 
           className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6"
-          {...withTTS("Katalog Semua Kursus")}
+          {...withTTS("Katalog Lowongan Pekerjaan")}
         >
-          Katalog Semua Kursus
+          Katalog Lowongan Pekerjaan
         </h1>
         <p 
           className="text-lg text-slate-600 mb-8"
-          {...withTTS("Cari dan pilih kursus yang paling cocok untuk kebutuhan belajarmu di sini.")}
+          {...withTTS("Cari dan lamar pekerjaan yang paling cocok untuk keahlianmu dari perusahaan yang inklusif.")}
         >
-          Cari dan pilih kursus yang paling cocok untuk kebutuhan belajarmu di sini.
+          Cari dan lamar pekerjaan impianmu dari berbagai perusahaan luar biasa yang inklusif dan ramah terhadap teman difabel.
         </p>
 
         {/* Search Bar */}
@@ -92,11 +92,11 @@ export default function Courses() {
           <input
             type="text"
             className="block w-full pl-11 pr-4 py-4 rounded-xl border-slate-200 bg-white shadow-sm focus:ring-2 focus:ring-primary-600 focus:border-primary-600 sm:text-base outline-none transition-shadow"
-            placeholder="Cari kursus, nama guru, atau topik..."
+            placeholder="Cari lowongan, posisi, atau nama perusahaan..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            aria-label="Kolom pencarian kursus"
-            {...withTTS("Ketik nama kursus atau guru untuk mencari")}
+            aria-label="Kolom pencarian lowongan kerja"
+            {...withTTS("Ketik nama lowongan atau perusahaan untuk mencari")}
           />
         </div>
       </div>
@@ -118,44 +118,44 @@ export default function Courses() {
                 ? 'bg-primary-600 text-white shadow-md scale-105' 
                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
             }`}
-            {...withTTS(`Filter kategori: ${cat}`)}
+            {...withTTS(`Filter kategori pekerjaan: ${cat}`)}
           >
             {cat}
           </button>
         ))}
       </div>
 
-      {/* Courses Grid */}
+      {/* Jobs Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-20">
-        {filteredCourses.length > 0 ? (
-          filteredCourses.map((course) => (
+        {filteredJobs.length > 0 ? (
+          filteredJobs.map((job) => (
             <Card 
-              key={course.id} 
+              key={job.id} 
               className="flex flex-col h-full border-slate-200 hover:border-primary-300 hover:shadow-lg transition-all group"
               tabIndex={0}
-              {...withTTS(`Kelas: ${course.title}. Diajar oleh ${course.instructor}. Jenis kelas ${course.category}.`)}
+              {...withTTS(`Posisi: ${job.title}. Perusahaan: ${job.instructor}. Lokasi kerja: ${job.rating}.`)}
             >
               <div className="h-48 bg-slate-200 rounded-t-xl overflow-hidden relative">
                 <div className="absolute top-4 left-4">
                   <span className="bg-white/90 text-slate-800 text-xs font-bold px-2.5 py-1 rounded-md shadow-sm backdrop-blur-sm">
-                    {course.category}
+                    {job.category}
                   </span>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent flex items-end">
                   <div className="p-4 w-full text-white flex justify-between items-center">
-                    <span className="text-sm font-medium">{course.instructor}</span>
-                    <div className="flex items-center text-yellow-400" aria-label={`Bintang ${course.rating}`}>
-                      <Star className="w-4 h-4 fill-current" />
-                      <span className="ml-1 text-sm font-bold">{course.rating}</span>
+                    <span className="text-sm font-medium">{job.instructor}</span>
+                    <div className="flex items-center text-primary-300" aria-label={`Sistem Kerja ${job.rating}`}>
+                      <Briefcase className="w-4 h-4" />
+                      <span className="ml-1 text-sm font-bold">{job.rating}</span>
                     </div>
                   </div>
                 </div>
               </div>
               
               <CardHeader className="flex-1 pb-4">
-                <CardTitle className="text-xl mb-2 line-clamp-2 group-hover:text-primary-700 transition-colors">{course.title}</CardTitle>
+                <CardTitle className="text-xl mb-2 line-clamp-2 group-hover:text-primary-700 transition-colors">{job.title}</CardTitle>
                 <div className="flex flex-wrap gap-2 mt-auto pt-2">
-                  {course.accessMods.map((mod, i) => (
+                  {job.accessMods.map((mod, i) => (
                     <span key={i} className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary-50 text-primary-700 border border-primary-100">
                       {mod}
                     </span>
@@ -164,9 +164,9 @@ export default function Courses() {
               </CardHeader>
               
               <CardFooter className="pt-0">
-                <Link to={`/courses/${course.id}`} className="w-full block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 rounded-lg">
-                  <Button className="w-full" aria-label={`Buka halaman kelas ${course.title}`} tabIndex={-1}>
-                    Buka Kelas Ini
+                <Link to={`/jobs/${job.id}`} className="w-full block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 rounded-lg">
+                  <Button className="w-full" aria-label={`Lamar posisi ${job.title}`} tabIndex={-1}>
+                    Lamar Sekarang
                   </Button>
                 </Link>
               </CardFooter>
@@ -175,8 +175,8 @@ export default function Courses() {
         ) : (
           <div className="col-span-full py-20 flex flex-col items-center justify-center text-center bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200">
             <Search className="w-16 h-16 text-slate-300 mb-4" />
-            <p className="text-slate-600 font-medium text-xl mb-2" {...withTTS("Maaf, kelas tidak ditemukan.")}>
-              Maaf, kelas tidak ditemukan.
+            <p className="text-slate-600 font-medium text-xl mb-2" {...withTTS("Maaf, lowongan tidak ditemukan.")}>
+              Maaf, lowongan kerja tidak ditemukan.
             </p>
             <p className="text-slate-500 max-w-sm" {...withTTS("Coba cari dengan kata kunci lain atau pilih kategori yang berbeda.")}>
               Coba cari dengan kata kunci lain atau pilih kategori disabilitas yang berbeda.
