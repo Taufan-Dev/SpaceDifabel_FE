@@ -7,7 +7,8 @@ import CourseDetail from '../pages/CourseDetail';
 import CoursePlayer from '../pages/CoursePlayer';
 import Jobs from '../pages/Jobs';
 import JobDetail from '../pages/JobDetail';
-
+import Articles from '../pages/Articles';
+import ArticleDetail from '../pages/ArticleDetail';
 export default function AppRouter() {
   return (
     <BrowserRouter>
@@ -21,8 +22,8 @@ export default function AppRouter() {
           <Route path="jobs" element={<Jobs />} />
           <Route path="jobs/:id" element={<JobDetail />} />
           
-          <Route path="articles" element={<div className="container p-8 text-center text-slate-800"><h1 className="text-4xl font-bold">Artikel</h1><p>Cerita inspiratif dan panduan penting segera hadir!</p></div>} />
-
+          <Route path="articles" element={<Articles />} />
+          <Route path="articles/:id" element={<ArticleDetail />} />
           <Route path="login" element={<div className="container p-8 text-center"><h1 className="text-3xl font-bold">Halaman Masuk (Mock)</h1></div>} />
           <Route path="register" element={<div className="container p-8 text-center"><h1 className="text-3xl font-bold">Halaman Daftar</h1></div>} />
         </Route>
