@@ -1,10 +1,13 @@
 import AppRouter from './routes/AppRouter';
 import { TTSProvider } from './context/TTSContext';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
     <TTSProvider>
-      <AppRouter />
+      <AuthProvider>
+        <AppRouter />
+      </AuthProvider>
     </TTSProvider>
   );
 }

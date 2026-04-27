@@ -9,6 +9,9 @@ import Jobs from '../pages/Jobs';
 import JobDetail from '../pages/JobDetail';
 import Articles from '../pages/Articles';
 import ArticleDetail from '../pages/ArticleDetail';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
+
 export default function AppRouter() {
   return (
     <BrowserRouter>
@@ -24,8 +27,8 @@ export default function AppRouter() {
           
           <Route path="articles" element={<Articles />} />
           <Route path="articles/:id" element={<ArticleDetail />} />
-          <Route path="login" element={<div className="container p-8 text-center"><h1 className="text-3xl font-bold">Halaman Masuk (Mock)</h1></div>} />
-          <Route path="register" element={<div className="container p-8 text-center"><h1 className="text-3xl font-bold">Halaman Daftar</h1></div>} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         </Route>
       </Routes>
     </BrowserRouter>
